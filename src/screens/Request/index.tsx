@@ -16,10 +16,16 @@ import theme from '../../theme';
 
 import * as S from './styles';
 
-const Request: React.FC = () => {
+const Request: React.FC = ({route}) => {
   const [selected, setSelected] = useState('economy');
 
   const navigation = useNavigation();
+  const sourceLat = route.params.paramKey.srclatitude;
+  const sourceLng = route.params.paramKey.srclongitutde;
+  
+  const destinationLat = route.params.paramKey.deslatitude;
+  const destinationLng = route.params.paramKey.deslongitude;
+  console.log(sourceLat,sourceLng,destinationLat,destinationLng)
 
   return (
     <S.Container>
@@ -28,8 +34,8 @@ const Request: React.FC = () => {
       </S.HeaderContainer>
       <S.Map
         region={{
-          latitude: -19.920183,
-          longitude: -43.936825,
+          latitude: sourceLat,
+          longitude: sourceLng,
           latitudeDelta: 0.0143,
           longitudeDelta: 0.0134,
         }}
@@ -52,11 +58,11 @@ const Request: React.FC = () => {
             { longitude: -43.938881, latitude: -19.921655 },
           ]}
           strokeColor={theme.color.secondary} // fallback for when `strokeColors` is not supported by the map-provider
-          strokeWidth={3}
+          strokeWidth={4}
         />
         <Marker
           image={homeMarker}
-          coordinate={{ latitude: -19.916483, longitude: -43.935129 }}
+          coordinate={{ latitude: sourceLat , longitude: sourceLng }}
         >
           <Callout>
             <Text>Praça da Estação</Text>
@@ -64,7 +70,7 @@ const Request: React.FC = () => {
         </Marker>
         <Marker
           image={destMarker}
-          coordinate={{ latitude: -19.921655, longitude: -43.938881 }}
+          coordinate={{ latitude: destinationLat, longitude: destinationLng }}
         >
           <Callout>
             <Text>Igreja de São José</Text>
